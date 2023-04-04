@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Guest extends Model
 {
@@ -12,14 +12,13 @@ class Guest extends Model
 
     protected $fillable =[
         'name',
-        'address',
-        'contactNo',
-        'nicNo'
+        'contact_no',
+        'nic_no'
 
     ];
-    public function bookings(): HasOne
+    public function bookings(): HasMany
     {
-        return $this->hasOne(Booking::class);
+        return $this->hasMany(Booking::class);
     }
 
 

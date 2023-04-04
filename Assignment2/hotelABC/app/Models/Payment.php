@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
@@ -11,13 +12,14 @@ class Payment extends Model
 
     protected $fillable =[
         'booking_id',
-        'subTotal',
+        'rate_id',
+        'total_days',
+        'sub_total',
         'tax',
-        'total'
+        'total',
     ];
-
-    public function checkIn(): BelongsTo
+    public function guest(): BelongsTo
     {
-        return $this->belongsTo(CheckIn::class);
+        return $this->belongsTo(Booking::class);
     }
 }

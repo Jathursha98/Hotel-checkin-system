@@ -26,12 +26,11 @@ class BookingFactory extends Factory
             $room_ID=$this->faker->unique()->randomElement($roomID);
         }
         return array(
-            'guestID'=>$this->faker->unique()->randomElement(Guest::pluck('id')),
-            'roomID'=>$room_ID,
-            'checkIn_Date'=>$this->faker->unique()->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d'),
-            'checkOut_Date'=>$this->faker->unique()->dateTimeBetween($startDate = '+1 days', $endDate = '+3 days')->format('Y-m-d'),
-            'stayType'=>$this->faker->randomElement(['FB','BB']),
-            'cost'=>$this->faker->randomElement(['15000','25000','40000']),
+            'guest_id'=>$this->faker->unique()->randomElement(Guest::pluck('id')),
+            'room_id'=>$room_ID,
+            'checkin_date'=>$this->faker->unique()->dateTimeBetween($startDate = '-3 days', $endDate = 'now')->format('Y-m-d'),
+            'checkout_date'=>$this->faker->unique()->dateTimeBetween($startDate = '+1 days', $endDate = '+3 days')->format('Y-m-d'),
+            'stay_type'=>$this->faker->randomElement(['FB','BB']),
 
         );
     }

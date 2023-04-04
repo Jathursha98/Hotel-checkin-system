@@ -17,8 +17,9 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'suiteType'=>$this->faker->randomElement(['Standard', 'Deluxe']),
-            'roomNo'=>$this->faker->unique()->numberBetween(101,130),
+            //SuiteType assigned to integer such that Standard =0, and Deluxe =1;
+            'suite_type'=>$this->faker->randomElement([0,1]),
+            'room_no'=>$this->faker->unique()->numberBetween(101,130),
             'status'=>$this->faker->randomElement(['Available','Booked']),
         ];
     }

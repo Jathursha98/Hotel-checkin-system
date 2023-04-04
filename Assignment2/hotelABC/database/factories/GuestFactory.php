@@ -18,9 +18,8 @@ class GuestFactory extends Factory
     {
         return [
             'name'=>$this->faker->name,
-            'address'=>$this->faker->address,
-            'contactNo'=>$this->faker->phoneNumber,
-            'nicNo'=>$this->faker->numerify('#########').'v',
+            'contact_no'=>$this->faker->phoneNumber,
+            'nic_no'=>$this->faker->numerify('#########').'v',
         ];
     }
 }

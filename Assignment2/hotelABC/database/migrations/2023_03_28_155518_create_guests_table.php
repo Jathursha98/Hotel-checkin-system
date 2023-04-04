@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('contactNo');
-            $table->string('nicNo');
+            $table->string('name',30);
+            $table->string('contact_no',20);
+            $table->string('nic_no',10);
             $table->timestamps();
         });
     }

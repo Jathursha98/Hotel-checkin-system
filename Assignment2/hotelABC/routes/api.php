@@ -18,9 +18,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/bookings',[\App\Http\Controllers\BookingController::class, 'index']);
+Route::get('/booking',[\App\Http\Controllers\BookingController::class, 'index']);
 
-Route::post('/bookings',[\App\Http\Controllers\BookingController::class, 'store']);
+Route::post('/booking',[\App\Http\Controllers\BookingController::class, 'store']);
+
+Route::get('/booking_with_rooms',[\App\Http\Controllers\BookingController::class, 'show']);
 
 Route::get('/room',[\App\Http\Controllers\RoomController::class, 'index']);
+
+
+Route::get('/bookings', function () {
+    return \App\Http\Resources\BookingResource::collection(\App\Models\Booking::all());
+});
+
+Route::get('/rooms', function () {
+    return \App\Http\Resources\RoomResource::collection(\App\Models\Room::all());
+});
 

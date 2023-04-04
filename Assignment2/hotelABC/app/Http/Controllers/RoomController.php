@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -14,8 +15,11 @@ class RoomController extends Controller
     public function index()
     {
         return response()->json(
-            Room::all()
+            Room::orderBy('status','DESC')
+                ->orderBy('suite_type','ASC')
+                ->get()
         );
+
     }
 
     /**
@@ -31,7 +35,7 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        //
+
     }
 
     /**

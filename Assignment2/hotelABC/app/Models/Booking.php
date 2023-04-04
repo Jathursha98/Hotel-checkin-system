@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booking extends Model
 {
     use HasFactory;
 
     protected  $fillable =[
-        'guestID',
-        'roomID',
-        'checkIn_Date',
-        'checkOut _Date',
-        'stayType',
-        'cost'
+        'guest_id',
+        'room_id',
+        'checkin_date',
+        'checkout _date',
+        'stay_type',
     ];
 
 
@@ -30,8 +30,8 @@ class Booking extends Model
         return $this->belongsTo(Guest::class);
     }
 
-    public function checkIns(): HasOne
+    public function payments(): HasOne
     {
-        return $this->hasOne(CheckIn::class);
+        return $this->hasOne(Payment::class);
     }
 }

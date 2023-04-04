@@ -20,7 +20,7 @@ class BookingController extends Controller
     public function index()
     {
         return response()->json(
-            Booking::all()
+            Booking::orderby('stay_type','ASC')->get()
         );
     }
 
@@ -40,17 +40,18 @@ class BookingController extends Controller
 
         $roomID = Room::where('status','Available')->pluck('id')->first();
 
-        $guestID =Guest::insertGetId(['name' =>'Charlie Wang','address'=>'2345A Halifax Avenue NY 267',
-                'contactNo'=>'223 252 3200','nicNo' => '945238747v']);
-        $bookings=DB::table('bookings')->insert([
-            'guestID'=>$guestID,
-            'roomID'=>$roomID,
-            'checkIn_Date'=>'2023-03-29',
-            'checkOut_Date'=>'2023-04-01',
-            'stayType'=>'FB',
-            'cost'=>'40000'
+        $guestID =Guest::insertGetId(['name' =>'Charlie Wang', 'contact_no'=>'223 252 3200','nic_no' => '945238747v']);
+        $bookings=Booking::insert([
+            'guest_id'=>$guestID,
+            'room_id'=>$roomID,
+            'checkin_date'=>'2023-03-29',
+            'checkout_date'=>'2023-04-01',
+            'stay_type'=>'FB',
         ]);
-       // $bookings->save();
+        $room_status=Room::where('id',$roomID)->get();
+        $room_status->toQuery()->update([
+            'status' => 'Booked',
+        ]);
         return response()->json($bookings);
 
     }
@@ -58,9 +59,19 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
+    public function show(Request $request)
     {
-        //
+        //Left Join with tables room and booking to retrieve all room details
+        $room = DB::table('rooms')
+            ->leftJoin('bookings','rooms.id','=', 'bookings.room_id')
+            ->leftJoin('guests', 'guests.id', '=', 'bookings.guest_id')
+            ->select('rooms.*', 'bookings.checkin_date', 'bookings.checkout_date', 'bookings.stay_type',
+                'guests.name', 'guests.contact_no', 'guests.nic_no')
+            ->orderBy('rooms.status', 'DESC')
+            ->get();
+
+        return response()->json($room);
+
     }
 
     /**
